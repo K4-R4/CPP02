@@ -82,7 +82,7 @@ Fixed Fixed::operator-(Fixed obj) const
 
 Fixed Fixed::operator*(Fixed obj) const
 {
-	obj.setRawBits((getRawBits() * obj.getRawBits()) >> Fixed::fractionalBits);
+	obj.setRawBits(static_cast<int>((static_cast<long int>(getRawBits()) * obj.getRawBits()) >> Fixed::fractionalBits));
 	return obj;
 }
 
