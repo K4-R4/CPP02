@@ -20,7 +20,8 @@
 
 #include <ostream>
 
-class Fixed {
+class Fixed
+{
 public:
 	Fixed();
 
@@ -43,7 +44,7 @@ public:
 	float toFloat() const;
 
 private:
-	int fixedPointNumber;
+	int m_fixedPointNumber;
 
 	static const int fractionalBits;
 };

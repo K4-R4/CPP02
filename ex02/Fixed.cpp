@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:45:36 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/21 17:05:18 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/23 23:08:18 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,91 @@ Fixed::Fixed(const Fixed &obj)
 	*this = obj;
 }
 
+bool Fixed::operator>(const Fixed &obj) const
+{
+	return getRawBits() > obj.getRawBits();
+}
+
+bool Fixed::operator<(const Fixed &obj) const
+{
+	return getRawBits() < obj.getRawBits();
+}
+
+bool Fixed::operator>=(const Fixed &obj) const
+{
+	return getRawBits() >= obj.getRawBits();
+}
+
+bool Fixed::operator<=(const Fixed &obj) const
+{
+	return getRawBits() <= obj.getRawBits();
+}
+
+bool Fixed::operator==(const Fixed &obj) const
+{
+	return getRawBits() == obj.getRawBits();
+}
+
+bool Fixed::operator!=(const Fixed &obj) const
+{
+	return getRawBits() != obj.getRawBits();
+}
+
+Fixed Fixed::operator+(Fixed obj) const
+{
+	obj.setRawBits(getRawBits() + obj.getRawBits());
+	return obj;
+}
+
+Fixed Fixed::operator-(Fixed obj) const
+{
+	obj.setRawBits(getRawBits() - obj.getRawBits());
+	return obj;
+}
+
+Fixed Fixed::operator*(Fixed obj) const
+{
+	obj.setRawBits((getRawBits() * obj.getRawBits()) >> Fixed::fractionalBits);
+	return obj;
+}
+
+Fixed Fixed::operator/(Fixed obj) const
+{
+	obj.setRawBits((getRawBits() / obj.getRawBits()) << Fixed::fractionalBits);
+	return obj;
+}
+
 Fixed &Fixed::operator=(const Fixed &obj)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
 	setRawBits(obj.getRawBits());
 	return *this;
+}
+
+Fixed &Fixed::operator++()
+{
+	setRawBits(getRawBits() + 1);
+	return *this;
+}
+
+Fixed Fixed::operator++(int)
+{
+	Fixed temp(*this);
+	operator++();
+	return temp;
+}
+
+Fixed &Fixed::operator--()
+{
+	setRawBits(getRawBits() - 1);
+	return *this;
+}
+
+Fixed Fixed::operator--(int)
+{
+	Fixed temp(*this);
+	operator--();
+	return temp;
 }
 
 Fixed::~Fixed()
@@ -73,6 +153,34 @@ int Fixed::toInt() const
 float Fixed::toFloat() const
 {
 	return static_cast<float>(getRawBits()) / (1 << Fixed::fractionalBits);
+}
+
+Fixed &Fixed::min(Fixed &f1, Fixed &f2)
+{
+	if (f1 <= f2)
+		return f1;
+	return f2;
+}
+
+const Fixed &Fixed::min(const Fixed &f1, const Fixed &f2)
+{
+	if (f1 <= f2)
+		return f1;
+	return f2;
+}
+
+Fixed &Fixed::max(Fixed &f1, Fixed &f2)
+{
+	if (f1 >= f2)
+		return f1;
+	return f2;
+}
+
+const Fixed &Fixed::max(const Fixed &f1, const Fixed &f2)
+{
+	if (f1 >= f2)
+		return f1;
+	return f2;
 }
 
 std::ostream &operator<<(std::ostream &os, const Fixed &fixed)

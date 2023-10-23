@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:45:36 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/21 00:52:22 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/21 16:54:59 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,48 @@
 #define EX00_FIXED_HPP
 
 
+#include <ostream>
+
 class Fixed
 {
 public:
 	Fixed();
 
+	Fixed(int integer);
+
+	Fixed(float floatingPointNumber);
+
 	Fixed(const Fixed &obj);
 
+	bool operator>(const Fixed &obj) const;
+
+	bool operator<(const Fixed &obj) const;
+
+	bool operator>=(const Fixed &obj) const;
+
+	bool operator<=(const Fixed &obj) const;
+
+	bool operator==(const Fixed &obj) const;
+
+	bool operator!=(const Fixed &obj) const;
+
+	Fixed operator+(Fixed obj) const;
+
+	Fixed operator-(Fixed obj) const;
+
+	Fixed operator*(Fixed obj) const;
+
+	Fixed operator/(Fixed obj) const;
+
 	Fixed &operator=(const Fixed &obj);
+
+	Fixed &operator++();
+
+	Fixed operator++(int);
+
+	Fixed &operator--();
+
+	Fixed operator--(int);
 
 	~Fixed();
 
@@ -33,11 +67,24 @@ public:
 
 	void setRawBits(int row);
 
+	int toInt() const;
+
+	float toFloat() const;
+
+	static Fixed &min(Fixed &f1, Fixed &f2);
+
+	static const Fixed &min(const Fixed &f1, const Fixed &f2);
+
+	static Fixed &max(Fixed &f1, Fixed &f2);
+
+	static const Fixed &max(const Fixed &f1, const Fixed &f2);
+
 private:
 	int m_fixedPointNumber;
 
-	static const int fractionalBits = 8;
+	static const int fractionalBits;
 };
 
+std::ostream &operator<<(std::ostream &os, const Fixed &fixed);
 
 #endif //EX00_FIXED_HPP
