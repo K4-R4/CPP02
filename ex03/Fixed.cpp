@@ -15,6 +15,7 @@
 //
 
 #include "Fixed.hpp"
+#include <cmath>
 
 const int Fixed::kFractionalBits = 8;
 
