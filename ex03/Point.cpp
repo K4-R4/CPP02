@@ -17,33 +17,27 @@
 #include "Fixed.hpp"
 #include "Point.hpp"
 
-Point::Point(const float x, const float y) : m_x(x), m_y(y)
-{
+Point::Point(const float x, const float y) : x_(x), y_(y) {
 }
 
-Point::Point(const Point &obj) : m_x(obj.m_x), m_y(obj.m_y)
-{
+Point::Point(const Point &obj) : x_(obj.x_), y_(obj.y_) {
 }
 
-Point Point::operator-(Point obj) const
-{
-	obj.m_x = m_x - obj.m_x;
-	obj.m_y = m_y - obj.m_y;
-	return obj;
+Point Point::operator-(Point obj) const {
+  obj.x_ = x_ - obj.x_;
+  obj.y_ = y_ - obj.y_;
+  return obj;
 }
 
-Point &Point::operator=(const Point &obj)
-{
-	m_x = obj.m_x;
-	m_y = obj.m_y;
-	return *this;
+Point &Point::operator=(const Point &obj) {
+  x_ = obj.x_;
+  y_ = obj.y_;
+  return *this;
 }
 
-Point::~Point()
-{
+Point::~Point() {
 }
 
-float Point::crossProduct(const Vector2D &v1, const Vector2D &v2)
-{
-	return (v1.m_x * v2.m_y - v1.m_y * v2.m_x).toFloat();
+float Point::CrossProduct(const Point &v1, const Point &v2) {
+  return (v1.x_ * v2.y_ - v1.y_ * v2.x_).ToFloat();
 }

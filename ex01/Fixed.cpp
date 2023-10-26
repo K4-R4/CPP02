@@ -17,66 +17,55 @@
 #include <iostream>
 #include "Fixed.hpp"
 
-const int Fixed::fractionalBits = 8;
+const int Fixed::kFractionalBits = 8;
 
-Fixed::Fixed() : m_fixedPointNumber(0)
-{
-	std::cout << "Default constructor called" << std::endl;
+Fixed::Fixed() : fixed_point_number_(0) {
+  std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(const int integer)
-{
-	std::cout << "Int constructor called" << std::endl;
-	setRawBits(integer << Fixed::fractionalBits);
+Fixed::Fixed(const int integer) {
+  std::cout << "Int constructor called" << std::endl;
+  SetRawBits(integer << Fixed::kFractionalBits);
 }
 
-Fixed::Fixed(const float floatingPointNumber)
-{
-	std::cout << "Float constructor called" << std::endl;
-	float shifted = floatingPointNumber * static_cast<float>(1 << Fixed::fractionalBits);
-	setRawBits(static_cast<int>(roundf(shifted)));
+Fixed::Fixed(const float floating_point_number) {
+  std::cout << "Float constructor called" << std::endl;
+  float shifted = floating_point_number * static_cast<float>(1 << Fixed::kFractionalBits);
+  SetRawBits(static_cast<int>(roundf(shifted)));
 }
 
-Fixed::Fixed(const Fixed &obj)
-{
-	std::cout << "Copy constructor called" << std::endl;
-	*this = obj;
+Fixed::Fixed(const Fixed &obj) {
+  std::cout << "Copy constructor called" << std::endl;
+  *this = obj;
 }
 
-Fixed &Fixed::operator=(const Fixed &obj)
-{
-	std::cout << "Copy assignment operator called" << std::endl;
-	setRawBits(obj.getRawBits());
-	return *this;
+Fixed &Fixed::operator=(const Fixed &obj) {
+  std::cout << "Copy assignment operator called" << std::endl;
+  SetRawBits(obj.GetRawBits());
+  return *this;
 }
 
-Fixed::~Fixed()
-{
-	std::cout << "Destructor called" << std::endl;
+Fixed::~Fixed() {
+  std::cout << "Destructor called" << std::endl;
 }
 
-int Fixed::getRawBits() const
-{
-	return m_fixedPointNumber;
+int Fixed::GetRawBits() const {
+  return fixed_point_number_;
 }
 
-void Fixed::setRawBits(const int row)
-{
-	m_fixedPointNumber = row;
+void Fixed::SetRawBits(const int row) {
+  fixed_point_number_ = row;
 }
 
-int Fixed::toInt() const
-{
-	return getRawBits() >> Fixed::fractionalBits;
+int Fixed::ToInt() const {
+  return GetRawBits() >> Fixed::kFractionalBits;
 }
 
-float Fixed::toFloat() const
-{
-	return static_cast<float>(getRawBits()) / (1 << Fixed::fractionalBits);
+float Fixed::ToFloat() const {
+  return static_cast<float>(GetRawBits()) / (1 << Fixed::kFractionalBits);
 }
 
-std::ostream &operator<<(std::ostream &os, const Fixed &fixed)
-{
-	os << fixed.toFloat();
-	return os;
+std::ostream &operator<<(std::ostream &os, const Fixed &fixed) {
+  os << fixed.ToFloat();
+  return os;
 }

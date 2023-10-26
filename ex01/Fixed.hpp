@@ -17,36 +17,24 @@
 #ifndef EX00_FIXED_HPP
 #define EX00_FIXED_HPP
 
-
 #include <ostream>
 
-class Fixed
-{
-public:
-	Fixed();
+class Fixed {
+ public:
+  Fixed();
+  Fixed(int integer);
+  Fixed(float floating_point_number);
+  Fixed(const Fixed &obj);
+  Fixed &operator=(const Fixed &obj);
+  ~Fixed();
+  int GetRawBits() const;
+  void SetRawBits(int row);
+  int ToInt() const;
+  float ToFloat() const;
 
-	Fixed(int integer);
-
-	Fixed(float floatingPointNumber);
-
-	Fixed(const Fixed &obj);
-
-	Fixed &operator=(const Fixed &obj);
-
-	~Fixed();
-
-	int getRawBits() const;
-
-	void setRawBits(int row);
-
-	int toInt() const;
-
-	float toFloat() const;
-
-private:
-	int m_fixedPointNumber;
-
-	static const int fractionalBits;
+ private:
+  int fixed_point_number_;
+  static const int kFractionalBits;
 };
 
 std::ostream &operator<<(std::ostream &os, const Fixed &fixed);

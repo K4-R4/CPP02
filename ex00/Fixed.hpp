@@ -17,27 +17,18 @@
 #ifndef EX00_FIXED_HPP
 #define EX00_FIXED_HPP
 
+class Fixed {
+ public:
+  Fixed();
+  Fixed(const Fixed &obj);
+  Fixed &operator=(const Fixed &obj);
+  ~Fixed();
+  int GetRawBits() const;
+  void SetRawBits(int row);
 
-class Fixed
-{
-public:
-	Fixed();
-
-	Fixed(const Fixed &obj);
-
-	Fixed &operator=(const Fixed &obj);
-
-	~Fixed();
-
-	int getRawBits() const;
-
-	void setRawBits(int row);
-
-private:
-	int m_fixedPointNumber;
-
-	static const int fractionalBits = 8;
+ private:
+  int fixed_point_number_;
+  static const int kFractionalBits = 8;
 };
-
 
 #endif //EX00_FIXED_HPP

@@ -19,28 +19,18 @@
 
 #include "Fixed.hpp"
 
+class Point {
+ public:
+  Point(float x, float y);
+  Point(const Point &obj);
+  Point operator-(Point obj) const;
+  Point &operator=(const Point &obj);
+  ~Point();
+  static float CrossProduct(const Point &v1, const Point &v2);
 
-typedef class Point Vector2D;
-
-class Point
-{
-public:
-	Point(float x, float y);
-
-	Point(const Point &obj);
-
-	Point operator-(Point obj) const;
-
-	Point &operator=(const Point &obj);
-
-	~Point();
-
-	static float crossProduct(const Vector2D &v1, const Vector2D &v2);
-
-private:
-	Fixed m_x;
-	Fixed m_y;
+ private:
+  Fixed x_;
+  Fixed y_;
 };
-
 
 #endif //EX03_POINT_HPP
